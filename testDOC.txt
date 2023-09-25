@@ -1,0 +1,106 @@
+Teste Unitario
+
+1° Criar Class Library (.NET Framework) > UniTest.cs 
+
+2° Criar class e deixa-la publica no projeto > New Class > FileProcess
+
+namespace UniTest
+{
+    public class FileProcess
+    {
+        // Este é o início da definição de uma classe chamada FileProcess no namespace UniTest.
+        public bool FileExist(string fileName)
+        {   
+            // Este é o início da definição de um método público chamado FileExist que retorna um valor booleano.
+            
+            if(string.IsNullOrEmpty(fileName))
+            {
+                // Esta é uma verificação condicional. Ela verifica se a string 'fileName' é nula ou vazia.
+                // Se 'fileName' for nulo ou vazio, ele lança uma exceção ArgumentNullException com uma mensagem indicando que 'fileName' não pode ser nulo.
+                throw new ArgumentNullException("fileName");
+            }
+            
+            // Após a verificação acima, o código continua aqui.
+            
+            return File.Exists(fileName);
+            // Esta linha verifica se um arquivo com o nome especificado em 'fileName' existe no sistema de arquivos.
+            // Se o arquivo existir, a função retorna 'true', caso contrário, retorna 'false'.
+        }
+    }
+}
+
+
+
+3° Entrar na solução com o botão direito > Add New Project > Selecionar a aba test > Unity Test Project (.NET Framework) > 
+
+	Dar o nome usando sufixo (seguindo o mesmo padrão) dessa novo projeto de teste > UniTestExe.cs 
+        UniTestExe.cs > Criar o a class de test seguindo os mesmo padrões > FileProcessTest.cs 
+
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
+using UniTest;
+
+namespace UniTestExe
+{
+    [TestClass]
+    public class FileProcessTest
+    {
+        // Este é o início da definição de uma classe de teste chamada FileProcessTest.
+        [TestMethod]
+        public void FileNameDoesExist()
+        {
+            // Este é um método de teste. Ele verifica se um arquivo especificado existe no sistema de arquivos.
+            // O método é marcado com o atributo [TestMethod] para indicar que é um método de teste.
+            
+            FileProcess fp = new FileProcess();
+            // Cria uma instância da classe FileProcess, que é a classe que queremos testar.
+
+            bool fromCall;
+            // Declara uma variável booleana chamada 'fromCall'.
+
+            fromCall = fp.FileExist(@"C:\Windows\Regedit.exe");
+            // Chama o método 'FileExist' da instância 'fp' para verificar se o arquivo especificado existe.
+            // O resultado é armazenado na variável 'fromCall'.
+
+            Assert.IsTrue(fromCall);
+            // Usa o método 'Assert.IsTrue' para verificar se 'fromCall' é verdadeiro (ou seja, se o arquivo existe).
+            // Se for verdadeiro, o teste passa; caso contrário, o teste falha.
+        }
+
+        [TestMethod]
+        public void FileNameDoesNotExist()
+        {
+            // Este é outro método de teste semelhante ao anterior.
+            
+            FileProcess fp = new FileProcess();
+            bool fromCall;
+
+            fromCall = fp.FileExist(@"C:\Regedit.exe");
+
+            Assert.IsFalse(fromCall);
+            // Neste caso, estamos verificando se um arquivo que sabemos que não existe retorna 'false' do método 'FileExist'.
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FileNameNullOrEmpty_ThrowArgumentNullException()
+        {
+            // Este método de teste verifica se o método 'FileExist' lança uma exceção ArgumentNullException quando é fornecida uma string nula ou vazia.
+
+            FileProcess fp = new FileProcess();
+            // Cria uma instância da classe FileProcess.
+
+            fp.FileExist("");
+            // Chama o método 'FileExist' com uma string vazia como argumento, o que deve causar o lançamento de uma exceção.
+
+            // O atributo [ExpectedException] é usado para indicar que este teste espera uma exceção do tipo ArgumentNullException.
+            // Se a exceção for lançada como esperado, o teste passa; caso contrário, o teste falha.
+        }
+    }
+}
+
+Referciando as class :    References > Add Reference > Project > MyUniTest
+
+Executar o teste:         Aba "Test" > Run Test 

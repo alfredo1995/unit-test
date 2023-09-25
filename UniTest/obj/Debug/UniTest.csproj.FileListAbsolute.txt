@@ -1,0 +1,6 @@
+C:\Users\7\source\repos\UniTest\UniTest\bin\Debug\UniTest.dll
+C:\Users\7\source\repos\UniTest\UniTest\bin\Debug\UniTest.pdb
+C:\Users\7\source\repos\UniTest\UniTest\obj\Debug\UniTest.csproj.AssemblyReference.cache
+C:\Users\7\source\repos\UniTest\UniTest\obj\Debug\UniTest.csproj.CoreCompileInputs.cache
+C:\Users\7\source\repos\UniTest\UniTest\obj\Debug\UniTest.dll
+C:\Users\7\source\repos\UniTest\UniTest\obj\Debug\UniTest.pdb
